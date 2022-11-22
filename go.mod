@@ -19,6 +19,8 @@ require (
 	github.com/tendermint/tendermint v0.34.19
 	google.golang.org/grpc v1.45.0
 	gopkg.in/yaml.v3 v3.0.1
+
+	github.com/Fueav/spike-chain v0.1.0
 )
 
 require (
@@ -130,5 +132,5 @@ replace (
 	github.com/gogo/protobuf => github.com/regen-network/protobuf v1.3.3-alpha.regen.1
 	github.com/tendermint/tendermint => github.com/forbole/tendermint v0.34.13-0.20210820072129-a2a4af55563d
 	google.golang.org/grpc => google.golang.org/grpc v1.33.2
-
+    github.com/Fueav/spike-chain => /Users/fuyiwei/GolandProjects/src/spike-chain
 )
