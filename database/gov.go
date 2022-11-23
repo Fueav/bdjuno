@@ -55,7 +55,7 @@ WHERE gov_params.height <= excluded.height`
 // GetGovParams returns the most recent governance parameters
 func (db *Db) GetGovParams() (*types.GovParams, error) {
 	var rows []dbtypes.GovParamsRow
-	err := db.Sqlx.Select(&rows, `SELECT * FROM gov_params`)
+	err := db.Sql.Select(&rows, `SELECT * FROM gov_params`)
 	if err != nil {
 		return nil, err
 	}
@@ -168,7 +168,7 @@ INSERT INTO proposal(
 // GetProposal returns the proposal with the given id, or nil if not found
 func (db *Db) GetProposal(id uint64) (*types.Proposal, error) {
 	var rows []*dbtypes.ProposalRow
-	err := db.Sqlx.Select(&rows, `SELECT * FROM proposal WHERE id = $1`, id)
+	err := db.Sql.Select(&rows, `SELECT * FROM proposal WHERE id = $1`, id)
 	if err != nil {
 		return nil, err
 	}
@@ -210,7 +210,7 @@ func (db *Db) GetProposal(id uint64) (*types.Proposal, error) {
 func (db *Db) GetOpenProposalsIds(blockTime time.Time) ([]uint64, error) {
 	var ids []uint64
 	stmt := `SELECT id FROM proposal WHERE status = $1 OR status = $2`
-	err := db.Sqlx.Select(&ids, stmt, govtypes.StatusDepositPeriod.String(), govtypes.StatusVotingPeriod.String())
+	err := db.Sql.Select(&ids, stmt, govtypes.StatusDepositPeriod.String(), govtypes.StatusVotingPeriod.String())
 	if err != nil {
 		return ids, err
 	}
@@ -218,7 +218,7 @@ func (db *Db) GetOpenProposalsIds(blockTime time.Time) ([]uint64, error) {
 	// Get also the invalid status proposals due to gRPC failure but still are in deposit period or voting period
 	var idsInvalid []uint64
 	stmt = `SELECT id FROM proposal WHERE status = $1 AND (voting_end_time > $2 OR deposit_end_time > $2)`
-	err = db.Sqlx.Select(&idsInvalid, stmt, types.ProposalStatusInvalid, blockTime)
+	err = db.Sql.Select(&idsInvalid, stmt, types.ProposalStatusInvalid, blockTime)
 	ids = append(ids, idsInvalid...)
 
 	return ids, err

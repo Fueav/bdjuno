@@ -1,12 +1,12 @@
 package main
 
 import (
+	"github.com/Fueav/juno/cmd"
+	initcmd "github.com/Fueav/juno/cmd/init"
+	parsetypes "github.com/Fueav/juno/cmd/parse/types"
+	startcmd "github.com/Fueav/juno/cmd/start"
+	"github.com/Fueav/juno/modules/messages"
 	"github.com/cosmos/cosmos-sdk/types/module"
-	"github.com/forbole/juno/v3/cmd"
-	initcmd "github.com/forbole/juno/v3/cmd/init"
-	parsetypes "github.com/forbole/juno/v3/cmd/parse/types"
-	startcmd "github.com/forbole/juno/v3/cmd/start"
-	"github.com/forbole/juno/v3/modules/messages"
 
 	migratecmd "github.com/forbole/bdjuno/v3/cmd/migrate"
 	parsecmd "github.com/forbole/bdjuno/v3/cmd/parse"

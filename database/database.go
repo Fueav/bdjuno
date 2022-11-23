@@ -3,8 +3,8 @@ package database
 import (
 	"fmt"
 
-	db "github.com/forbole/juno/v3/database"
-	"github.com/forbole/juno/v3/database/postgresql"
+	db "github.com/Fueav/juno/database"
+	"github.com/Fueav/juno/database/postgresql"
 	"github.com/jmoiron/sqlx"
 )
 
@@ -14,7 +14,7 @@ var _ db.Database = &Db{}
 // so that it can properly store custom BigDipper-related data.
 type Db struct {
 	*postgresql.Database
-	Sqlx *sqlx.DB
+	Sql *sqlx.DB
 }
 
 // Builder allows to create a new Db instance implementing the db.Builder type
@@ -31,7 +31,7 @@ func Builder(ctx *db.Context) (db.Database, error) {
 
 	return &Db{
 		Database: psqlDb,
-		Sqlx:     sqlx.NewDb(psqlDb.Sql, "postgresql"),
+		Sql:      sqlx.NewDb(psqlDb.Sql, "postgresql"),
 	}, nil
 }
 
